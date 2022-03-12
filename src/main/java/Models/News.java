@@ -3,9 +3,11 @@ package Models;
 import java.util.Objects;
 
 public class News {
-    int id;
-    int employeeId;
-    String information;
+    private int id;
+    private int employeeId;
+    private String information;
+
+    public String type;
 
     public News(int employeeId, String information) {
         this.employeeId = employeeId;
