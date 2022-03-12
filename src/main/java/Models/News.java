@@ -12,6 +12,14 @@ public class News {
         this.information = information;
     }
 
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,11 +34,4 @@ public class News {
         return Objects.hash(employeeId, information);
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getInformation() {
-        return information;
-    }
 }
