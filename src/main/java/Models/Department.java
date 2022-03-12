@@ -1,35 +1,26 @@
 package Models;
 
-import java.util.List;
+
 import java.util.Objects;
 
-public class Departments {
+public class Department {
 
     private int id;
     private String name;
     private String description;
-    private int employeeId;
     private int noOfEmployees;
-    private int departmentSize;
-    private List <String> addEmployee;
 
-
-    public Departments(String name, String description,int employeeId, int noOfEmployees, int departmentSize) {
+    public Department(String name, String description) {
         this.name = name;
         this.description = description;
-        this.noOfEmployees = noOfEmployees;
-        this.employeeId = employeeId;
-        this.departmentSize = departmentSize;
-        this.addEmployee.add("Added");
-        this.departmentSize = addEmployee.size();
     }
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Departments)) return false;
-        Departments that = (Departments) o;
+        if (!(o instanceof Department)) return false;
+        Department that = (Department) o;
         return noOfEmployees == that.noOfEmployees
                 && Objects.equals(name, that.name)
                 && Objects.equals(description, that.description);
@@ -40,6 +31,22 @@ public class Departments {
         return Objects.hash(name, description, noOfEmployees);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNoOfEmployees(int noOfEmployees) {
+        this.noOfEmployees = noOfEmployees;
+    }
+
+    public int getNoOfEmployees() {
+        return noOfEmployees;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -48,7 +55,4 @@ public class Departments {
         return description;
     }
 
-    public int getNoOfEmployees() {
-        return noOfEmployees;
-    }
 }

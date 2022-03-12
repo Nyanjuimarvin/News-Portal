@@ -4,8 +4,8 @@ public class CompanyNews extends News implements Comparable <CompanyNews>{
 
     public static final String NEWS_TYPE = "company";
 
-    public CompanyNews(int employeeId, String information, String category) {
-        super(employeeId, information, category);
+    public CompanyNews(String information, String category) {
+        super(information, category);
         type = NEWS_TYPE;
     }
 

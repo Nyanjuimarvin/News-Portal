@@ -4,8 +4,8 @@ public class DepartmentNews extends News implements Comparable <DepartmentNews>{
 
     public static final String NEWS_TYPE = "department";
 
-    public DepartmentNews(int employeeId, String information, String category) {
-        super(employeeId, information, category);
+    public DepartmentNews( String information, String category) {
+        super(information, category);
         type = NEWS_TYPE;
     }
 

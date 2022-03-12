@@ -1,6 +1,5 @@
 package Models;
 
-import jdk.internal.foreign.abi.aarch64.linux.LinuxAArch64Linker;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class Employee {
         this.roles = roles;
         this.rolesString = roles.stream()
                 .map(Object::toString).
-                collect(Collectors.joining());
+                collect(Collectors.joining(", "));
     }
 
     @Override
@@ -41,12 +40,28 @@ public class Employee {
         return Objects.hash(name, position, departmentId, roles);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getPosition() {
         return position;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public String getRolesString() {
+        return rolesString;
     }
 
     public int getDepartmentId() {
