@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Employee {
+public class Member {
 
     private int id;
     private String name;
@@ -14,7 +14,9 @@ public class Employee {
     private List <String> roles;
     private String rolesString;
 
-    public Employee(String name, String position,List <String> roles, int departmentId){
+    public boolean isAdmin;
+
+    public Member(String name, String position, List <String> roles, int departmentId){
         this.name = name;
         this.position = position;
         this.departmentId = departmentId;
@@ -27,8 +29,8 @@ public class Employee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
+        if (!(o instanceof Member)) return false;
+        Member employee = (Member) o;
         return departmentId == employee.departmentId
                 && Objects.equals(name, employee.name)
                 && Objects.equals(position, employee.position)

@@ -47,4 +47,5 @@ class CompanyNewsTest {
         companyNews.setId(3);
         assertEquals(3,companyNews.getId());
     }
+
 }

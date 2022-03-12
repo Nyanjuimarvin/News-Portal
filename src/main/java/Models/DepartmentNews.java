@@ -12,6 +12,6 @@ public class DepartmentNews extends News implements Comparable <DepartmentNews>{
 
     @Override
     public int compareTo(DepartmentNews o) {
-        return 0;
+        return Long.compare(this.getDateCreated(), o.getDateCreated());
     }
 }

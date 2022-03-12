@@ -6,43 +6,34 @@ public class Admin {
 
     private int id;
     private String name;
-    private String position;
-    private int employeeId;
 
-    public Admin(String name, String position, int employeeId) {
+    public Admin(int id, String name) {
+        this.id = id;
         this.name = name;
-        this.position = position;
-        this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Admin)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Admin admin = (Admin) o;
-        return employeeId == admin.employeeId
-                && Objects.equals(name, admin.name)
-                && Objects.equals(position, admin.position);
+        return Objects.equals(name, admin.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, position, employeeId);
+        return Objects.hash(name);
     }
 }

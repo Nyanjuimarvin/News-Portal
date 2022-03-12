@@ -30,7 +30,7 @@ class DepartmentNewsTest {
         departmentNews = setUpDNews();
 
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat humanDate = new SimpleDateFormat("MMMM dd YYYY 'at' hh:mm aaa");
+        SimpleDateFormat humanDate = new SimpleDateFormat("MMMM dd yyyy 'at' hh:mm aaa");
         String testString = humanDate.format(date);
 
         assertEquals("The sales team delivered great results",departmentNews.getInformation());
@@ -45,4 +45,5 @@ class DepartmentNewsTest {
         departmentNews.setId(3);
         assertEquals(3,departmentNews.getId());
     }
+
 }

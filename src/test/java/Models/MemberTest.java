@@ -10,23 +10,23 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmployeeTest {
+class MemberTest {
 
-    Employee employee;
+    Member employee;
 
-    public Employee setUp(){
+    public Member setUp(){
         List <String> testRoles = new ArrayList<>();
         testRoles.add("Print Papers");
         testRoles.add("review code");
         testRoles.add("Troubleshoot");
-        return new Employee("Gordon","salaryMan",testRoles,3);
+        return new Member("Gordon","salaryMan",testRoles,3);
     }
 
     @Test
     @DisplayName("Instantiates Correctly")
     public void Employee_InstantiatesCorrectly_True(){
         employee = setUp();
-        assertTrue(employee instanceof Employee);
+        assertTrue(employee instanceof Member);
     }
 
     @Test

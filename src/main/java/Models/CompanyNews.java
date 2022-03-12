@@ -12,6 +12,6 @@ public class CompanyNews extends News implements Comparable <CompanyNews>{
 
     @Override
     public int compareTo(CompanyNews o) {
-        return 0;
+        return Long.compare(this.getDateCreated(), o.getDateCreated());
     }
 }

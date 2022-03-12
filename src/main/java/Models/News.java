@@ -34,7 +34,7 @@ public abstract class News {
 
     public void setReadableDate() {
         Date date = new Date(this.dateCreated);
-        SimpleDateFormat humanDate = new SimpleDateFormat("MMMM dd YYYY 'at' hh:mm aaa");
+        SimpleDateFormat humanDate = new SimpleDateFormat("MMMM dd yyyy 'at' hh:mm aaa");
         this.readableDate = humanDate.format(date);
     }
 
