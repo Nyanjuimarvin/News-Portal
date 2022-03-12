@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class News {
     private int id;
-    private int employeeId;
     private String information;
+    private String category;
 
     public String type;
 
-    public News(int employeeId, String information) {
-        this.employeeId = employeeId;
+    public News(int employeeId, String information, String category) {
         this.information = information;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
+        this.category = category;
     }
 
     public String getInformation() {
         return information;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     @Override
@@ -27,13 +27,13 @@ public class News {
         if (this == o) return true;
         if (!(o instanceof News)) return false;
         News news = (News) o;
-        return employeeId == news.employeeId
-                && Objects.equals(information, news.information);
+        return Objects.equals(information, news.information)
+                && Objects.equals(category, news.category)
+                && Objects.equals(type, news.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, information);
+        return Objects.hash( information, category, type);
     }
-
 }

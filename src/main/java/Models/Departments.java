@@ -1,5 +1,6 @@
 package Models;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Departments {
@@ -7,13 +8,20 @@ public class Departments {
     private int id;
     private String name;
     private String description;
+    private int employeeId;
     private int noOfEmployees;
+    private int departmentSize;
+    private List <String> addEmployee;
 
 
-    public Departments(String name, String description, int noOfEmployees) {
+    public Departments(String name, String description,int employeeId, int noOfEmployees, int departmentSize) {
         this.name = name;
         this.description = description;
         this.noOfEmployees = noOfEmployees;
+        this.employeeId = employeeId;
+        this.departmentSize = departmentSize;
+        this.addEmployee.add("Added");
+        this.departmentSize = addEmployee.size();
     }
 
 
