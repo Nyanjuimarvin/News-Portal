@@ -10,6 +10,7 @@ public interface CompanyNewsDao {
     CompanyNews getById(int id);
 
     List <CompanyNews> allCompanyNews();
-    CompanyNews deleteById(int id);
+
+    void deleteById(int id);
     void deleteAllCompanyNews();
 }

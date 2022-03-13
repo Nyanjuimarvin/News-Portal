@@ -49,6 +49,7 @@ class DepartmentNewsImplementationTest {
     }
 
     @Test
+    @DisplayName("Adds news to department")
     void addDepartmentNews_ReturnsNews() {
         departmentNews = setUpDepartmentNews();
         department = setUpDepartment();
@@ -95,7 +96,6 @@ class DepartmentNewsImplementationTest {
         DepartmentNews departmentNews1 = new DepartmentNews("Drop gear at given Co-ords","Informative");
         departmentNewsImplementation.add(departmentNews);
         departmentNewsImplementation.add(departmentNews1);
-        departmentNewsImplementation.deleteById(departmentNews1.getId());
         departmentNewsImplementation.deleteById(departmentNews1.getId());
         assertFalse(departmentNewsImplementation.getAll().contains(departmentNews1));
     }
