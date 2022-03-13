@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AdminDao {
 
-    void add();
+    void add(Admin admin);
 
     Admin getById(int id);
     List <Admin> getAdmins();
