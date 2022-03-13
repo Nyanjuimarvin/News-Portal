@@ -48,7 +48,7 @@ public class DepartmentNewsImplementation implements DepartmentNewsDao{
     @Override
     public DepartmentNews getById(int id) {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM news WHERE id = :id AND type = 'company'")
+            return conn.createQuery("SELECT * FROM news WHERE id = :id AND type = 'department'")
                     .addParameter("id",id)
                     .executeAndFetchFirst(DepartmentNews.class);
         }
@@ -57,7 +57,7 @@ public class DepartmentNewsImplementation implements DepartmentNewsDao{
     @Override
     public List<DepartmentNews> getAll() {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM news WHERE type = 'company'")
+            return conn.createQuery("SELECT * FROM news WHERE type = 'department'")
                     .executeAndFetch(DepartmentNews.class);
         }
     }
