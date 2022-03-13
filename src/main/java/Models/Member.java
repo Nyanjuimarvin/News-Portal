@@ -22,24 +22,25 @@ public class Member {
         this.departmentId = departmentId;
         this.roles = roles;
         this.rolesString = roles.stream()
-                .map(Object::toString).
-                collect(Collectors.joining(", "));
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Member)) return false;
-        Member employee = (Member) o;
-        return departmentId == employee.departmentId
-                && Objects.equals(name, employee.name)
-                && Objects.equals(position, employee.position)
-                && Objects.equals(roles, employee.roles);
+        Member member = (Member) o;
+        return departmentId == member.departmentId
+                && Objects.equals(name, member.name)
+                && Objects.equals(position, member.position)
+                && Objects.equals(roles, member.roles)
+                && Objects.equals(rolesString, member.rolesString);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, position, departmentId, roles);
+        return Objects.hash(name, position, departmentId, roles, rolesString);
     }
 
     public void setId(int id) {
