@@ -47,26 +47,40 @@ public class DepartmentNewsImplementation implements DepartmentNewsDao{
 
     @Override
     public DepartmentNews getById(int id) {
-        return null;
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM news WHERE id = :id AND type = 'department'")
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(DepartmentNews.class);
+        }
     }
 
     @Override
-    public DepartmentNews getAll() {
-        return null;
+    public List<DepartmentNews> getAll() {
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM news WHERE type = 'department'")
+                    .executeAndFetch(DepartmentNews.class);
+        }
     }
 
-    @Override
-    public List<DepartmentNews> allCompanyNews() {
-        return null;
-    }
 
     @Override
-    public DepartmentNews deleteById(int id) {
-        return null;
+    public void deleteById(int id) {
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM news WHERE id = :id")
+                    .addParameter("id",id)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
     public void deleteDepartmentNews() {
-
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("DELETE FROM news ")
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 }

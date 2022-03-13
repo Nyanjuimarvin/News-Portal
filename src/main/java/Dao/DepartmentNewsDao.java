@@ -13,9 +13,8 @@ public interface DepartmentNewsDao {
     void addDepartmentNews(Department department, DepartmentNews departmentNews);
 
     DepartmentNews getById(int id);
-    DepartmentNews getAll();
+    List <DepartmentNews> getAll();
 
-    List<DepartmentNews> allCompanyNews();
-    DepartmentNews deleteById(int id);
+    void deleteById(int id);
     void deleteDepartmentNews();
 }

@@ -67,23 +67,48 @@ class DepartmentNewsImplementationTest {
     }
 
     @Test
-    void getById() {
+    @DisplayName("Get DepartmentNews At Id")
+    public void getById_ReturnsDepartmentNews() {
+        departmentNews = setUpDepartmentNews();
+        DepartmentNews departmentNews1 = new DepartmentNews("Drop gear at given Co-ords","Informative");
+        departmentNewsImplementation.add(departmentNews);
+        departmentNewsImplementation.add(departmentNews1);
+        assertEquals(departmentNews1, departmentNewsImplementation.getById(departmentNews1.getId()));
     }
 
     @Test
-    void getAll() {
+    @DisplayName("Contains All")
+    public void getAll_ContainsAllDepartmentNews() {
+        departmentNews = setUpDepartmentNews();
+        DepartmentNews departmentNews1 = new DepartmentNews("Drop gear at given Co-ords","Informative");
+        departmentNewsImplementation.add(departmentNews);
+        departmentNewsImplementation.add(departmentNews1);
+        assertTrue(departmentNewsImplementation.getAll().contains(departmentNews));
+        assertTrue(departmentNewsImplementation.getAll().contains(departmentNews1));
+    }
+
+
+    @Test
+    @DisplayName("Deletes department news")
+    public void deleteById_DeletesDepartmentNewsAtId() {
+        departmentNews = setUpDepartmentNews();
+        DepartmentNews departmentNews1 = new DepartmentNews("Drop gear at given Co-ords","Informative");
+        departmentNewsImplementation.add(departmentNews);
+        departmentNewsImplementation.add(departmentNews1);
+        departmentNewsImplementation.deleteById(departmentNews1.getId());
+        departmentNewsImplementation.deleteById(departmentNews1.getId());
+        assertFalse(departmentNewsImplementation.getAll().contains(departmentNews1));
     }
 
     @Test
-    void allCompanyNews() {
-    }
-
-    @Test
-    void deleteById() {
-    }
-
-    @Test
-    void deleteDepartmentNews() {
+    @DisplayName("Deletes All Department News")
+    public void deleteDepartmentNews_DeletesAllDepartmentNews() {
+        departmentNews = setUpDepartmentNews();
+        DepartmentNews departmentNews1 = new DepartmentNews("Drop gear at given Co-ords","Informative");
+        departmentNewsImplementation.add(departmentNews);
+        departmentNewsImplementation.add(departmentNews1);
+        departmentNewsImplementation.deleteDepartmentNews();
+        assertEquals(0,departmentNewsImplementation.getAll().size());
     }
 
     public DepartmentNews setUpDepartmentNews(){
