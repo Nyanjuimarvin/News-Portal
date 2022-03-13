@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdminTest {
 
     public Admin setUpAdmin(){
-        Admin admin = new Admin(1,"Novik");
+        Admin admin = new Admin("Novik");
+        admin.setId(1);
         return admin;
     }
 
