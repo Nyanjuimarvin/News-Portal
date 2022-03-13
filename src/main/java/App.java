@@ -44,11 +44,42 @@ public class App {
         /* Post Methods */
 
         //New Member
+        post("/members/new","application/json",(req,res)->{
+            Member member = gson.fromJson(req.body(),Member.class);
+            memberImplementation.add(member);
+            res.status(201);
+            return gson.toJson(member);
+        });
 
         //New Department
+        post("/departments/new","application/json",(req,res)->{
+            Department department = gson.fromJson(req.body(),Department.class);
+            departmentImplementation.add(department);
+            res.status(201);
+            return gson.toJson(department);
+        });
 
         //Department News
-
+        post("/departmentNews/new","application/json",(req,res)->{
+            DepartmentNews departmentNews = gson.fromJson(req.body(),DepartmentNews.class);
+            departmentNewsImplementation.add(departmentNews);
+            res.status(201);
+            return gson.toJson(departmentNews);
+        });
         //Company News
+        post("/companyNews/new","application/json",(req,res)->{
+            CompanyNews companyNews = gson.fromJson(req.body(),CompanyNews.class);
+            companyNewsImplementation.add(companyNews);
+            res.status(201);
+            return gson.toJson(companyNews);
+        });
+
+        //Admin
+        post("/admin/me","application/json",(req,res)->{
+            Admin admin = gson.fromJson(req.body(),Admin.class);
+            adminImplementation.add(admin);
+            res.status(201);
+            return gson.toJson(admin);
+        });
     }
 }
