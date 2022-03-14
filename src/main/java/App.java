@@ -6,6 +6,9 @@ import org.sql2o.Sql2o;
 import static spark.Spark.*;
 import com.google.gson.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class App {
     public static void main(String[] args) {
 
@@ -80,6 +83,24 @@ public class App {
             adminImplementation.add(admin);
             res.status(201);
             return gson.toJson(admin);
+        });
+
+
+        //Filters
+
+//        exception(ApiException.class, (exception, req, res) -> {
+//            ApiException err = (ApiException) exception;
+//            Map<String, Object> jsonMap = new HashMap<>();
+//            jsonMap.put("status", err.getStatusCode());
+//            jsonMap.put("errorMessage", err.getMessage());
+//            res.type("application/json");
+//            res.status(err.getStatusCode());
+//            res.body(gson.toJson(jsonMap));
+//        });
+
+        //Refactor response type
+        after((req,res)->{
+            res.type("application/json");
         });
     }
 }

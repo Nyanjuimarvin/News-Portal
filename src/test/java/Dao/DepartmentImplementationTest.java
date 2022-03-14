@@ -76,8 +76,8 @@ class DepartmentImplementationTest {
         department = setUpDepartment();
         departmentImplementation.add(department);
         String [] roles = {"Jester","Keeper of coffins"};
-        Member member = new Member("Cicero","Assasin", Arrays.asList(roles),department.getId());
-        Member member1 = new Member("Veezera","member",Arrays.asList(roles),department.getId());
+        Member member = new Member("Cicero","Assasin", roles,department.getId());
+        Member member1 = new Member("Veezera","member",roles,department.getId());
         memberImplementation.add(member);
         memberImplementation.add(member1);
         assertTrue(departmentImplementation.getAllMembersInDepartment(department.getId()).contains(memberImplementation.getById(member.getId())));

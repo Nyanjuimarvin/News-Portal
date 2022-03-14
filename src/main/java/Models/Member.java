@@ -1,6 +1,8 @@
 package Models;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,19 +13,16 @@ public class Member {
     private String name;
     private String position;
     private int departmentId;
-    private List <String> roles;
+    private String[] roles;
     private String rolesString;
 
     public boolean isAdmin;
 
-    public Member(String name, String position, List <String> roles, int departmentId){
+    public Member(String name, String position, String[] roles, int departmentId){
         this.name = name;
         this.position = position;
         this.departmentId = departmentId;
         this.roles = roles;
-        this.rolesString = roles.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(", "));
     }
 
     @Override
@@ -59,15 +58,24 @@ public class Member {
         return position;
     }
 
-    public List<String> getRoles() {
+    public String[] getRoles() {
         return roles;
     }
 
+    public void setRolesString() {
+        this.rolesString = Arrays.asList(this.roles).stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+    }
+
     public String getRolesString() {
-        return rolesString;
+        return Arrays.asList(this.roles).stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
 
     public int getDepartmentId() {
         return departmentId;
     }
+
 }

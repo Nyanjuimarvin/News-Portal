@@ -66,6 +66,6 @@ class AdminImplementationTest {
 
     public Member setUpMember(){
         String[] roles = {"Recruit pirates","Cut down rejects","Preach about insanity"};
-        return new Member("Vaas","Captain", Arrays.asList(roles),4);
+        return new Member("Vaas","Captain", roles,4);
     }
 }

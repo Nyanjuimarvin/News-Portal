@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -15,10 +16,7 @@ class MemberTest {
     Member employee;
 
     public Member setUp(){
-        List <String> testRoles = new ArrayList<>();
-        testRoles.add("Print Papers");
-        testRoles.add("review code");
-        testRoles.add("Troubleshoot");
+        String[] testRoles = {"Print Papers","review code","Troubleshoot"};
         return new Member("Gordon","salaryMan",testRoles,3);
     }
 
@@ -32,15 +30,11 @@ class MemberTest {
     @Test
     @DisplayName("Instantiates With Properties")
     public void Employee_InstantiatesWithProperties(){
-        List <String> roles = new ArrayList<>();
-        roles.add("Print Papers");
-        roles.add("review code");
-        roles.add("Troubleshoot");
-
+        String[] roles = {"Print Papers","review code","Troubleshoot"};
         employee = setUp();
         assertEquals("Gordon",employee.getName());
         assertEquals("salaryMan",employee.getPosition());
-        assertEquals(roles,employee.getRoles());
+        assertTrue(Arrays.equals(roles,employee.getRoles()));
     }
 
 

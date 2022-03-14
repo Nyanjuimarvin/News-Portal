@@ -61,10 +61,7 @@ class MemberImplementationTest {
     public void getAllMembers_ReturnsAllMembersInLIst(){
         member = setUpMember();
 
-        List <String> roles = new ArrayList<>();
-        roles.add("Listen to employee problems");
-        roles.add("Keep work environment Safe");
-        roles.add("Evaluate Perfomance");
+        String[] roles = {"Listen to employee problems","Keep work environment Safe","Evaluate Performance"};
         Member member1 = new Member("Valdamjong","HR Manager",roles,7);
         memberImplementation.add(member);
         memberImplementation.add(member1);
@@ -78,10 +75,7 @@ class MemberImplementationTest {
     public void deleteAll_DeletesAllMembers(){
 
         member = setUpMember();
-        List <String> roles = new ArrayList<>();
-        roles.add("Listen to employee problems");
-        roles.add("Keep work environment Safe");
-        roles.add("Evaluate Perfomance");
+        String[] roles = {"Listen to employee problems","Keep work environment Safe","Evaluate Perfomance"};
         Member member1 = new Member("Valdamjong","HR Manager",roles,7);
         memberImplementation.add(member);
         memberImplementation.add(member1);
@@ -94,10 +88,7 @@ class MemberImplementationTest {
     public void deleteById_DeletesMember(){
 
         member = setUpMember();
-        List <String> roles = new ArrayList<>();
-        roles.add("Listen to employee problems");
-        roles.add("Keep work environment Safe");
-        roles.add("Evaluate Perfomance");
+        String[] roles = {"Listen to employee problems","Keep work environment Safe","Evaluate Perfomance"};
         Member member1 = new Member("Valdamjong","HR Manager",roles,7);
         memberImplementation.add(member);
         memberImplementation.add(member1);
@@ -106,10 +97,7 @@ class MemberImplementationTest {
     }
 
     public Member setUpMember(){
-        List <String> roles = new ArrayList<>();
-        roles.add("Pitch ideas");
-        roles.add("Recruit business smart people");
-        roles.add("Market goods worldwide");
+        String[] roles = {"Pitch ideas","Recruit business smart people","Market goods worldwide"};
         return new Member("Roggvir","Marketing Strategist",roles,3);
     }
 }

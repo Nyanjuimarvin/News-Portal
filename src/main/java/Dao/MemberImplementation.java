@@ -16,10 +16,10 @@ public class MemberImplementation implements MemberDao{
 
     @Override
     public void add(Member member) {
-        String sql = "INSERT INTO members(name,position,roles,departmentid) VALUES (:name,:position,:roles,:departmentId)";
+        String sql = "INSERT INTO members(name,position,roles,departmentid) VALUES (:name,:position,:role,:departmentId)";
         try(Connection conn = sql2o.open()){
             int id = (int) conn.createQuery(sql,true)
-                               .addParameter("roles",member.getRolesString())
+                    .addParameter("role",member.getRolesString())
                                .bind(member)
                                .executeUpdate()
                                .getKey();
