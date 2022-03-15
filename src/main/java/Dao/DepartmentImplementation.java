@@ -60,7 +60,7 @@ public class DepartmentImplementation implements DepartmentDao{
     }
 
     @Override
-    public List<DepartmentNews> getDepartmentNews(int id) {
+    public List <DepartmentNews> getDepartmentNews(int id) {
 
         List <DepartmentNews> departmentNews = new ArrayList<>();
 
@@ -70,13 +70,11 @@ public class DepartmentImplementation implements DepartmentDao{
                     .executeAndFetch(Integer.class);
             for (int key: keys){
                 departmentNews.add(
-                        conn.createQuery("SELECT * FROM news WHERE id = :id AND type = 'department'")
+                        conn.createQuery("SELECT * FROM news WHERE id = :id")
                                 .addParameter("id",key)
                                 .executeAndFetchFirst(DepartmentNews.class)
                 );
-
             }
-
             return departmentNews;
         }
     }

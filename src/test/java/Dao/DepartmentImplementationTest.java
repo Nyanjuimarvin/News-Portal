@@ -60,6 +60,7 @@ class DepartmentImplementationTest {
         assertEquals(department, departmentImplementation.getById(department.getId()));
     }
 
+
     @Test
     @DisplayName("Get all Departments")
     public void getAllDepartments_ReturnsAllDepartments() {

@@ -18,6 +18,7 @@ public abstract class News {
         this.category = category;
         this.dateCreated = System.currentTimeMillis();
         this.setReadableDate();
+        this.readableDate = this.getReadableDate();//Inference 1
     }
 
     public void setId(int id) {
@@ -52,6 +53,10 @@ public abstract class News {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override

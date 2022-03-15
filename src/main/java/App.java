@@ -6,7 +6,9 @@ import org.sql2o.Sql2o;
 import static spark.Spark.*;
 import com.google.gson.*;
 
+import java.awt.peer.CanvasPeer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -36,17 +38,36 @@ public class App {
         //Get Member
         get("/members/:id","application/json",(req,res)->{
             int id = Integer.parseInt(req.params("id"));
-            return gson.toJson(memberImplementation.getById(id));
+            Member member = memberImplementation.getById(id);
+            System.out.println(id);
+            System.out.println(member.getName());
+            return gson.toJson(member);
         });
 
-        //Get Department
+        //Get Department ::Good ->No.of employees
+        get("/departments/:id","application/json",(req,res)->{
+            int id = Integer.parseInt(req.params("id"));
+            Department department = departmentImplementation.getById(id);
+            System.out.println(id);
+            System.out.println(department.getName());
+            return gson.toJson(department);
+        });
 
         //Get Company News
+        get("/companyNews/all","application/json",(req,res)->{
+           return gson.toJson(companyNewsImplementation.allCompanyNews());
+        });
 
+        //Get All Department News
+        get("/departmentNews/all","application/json",(req,res)->{
+            return gson.toJson(departmentNewsImplementation.getAll());
+        });
 
-        //Delete News
-
-        //Delete User(Admin)
+        //Get All Department News At id *Not Yet*
+        get("/department/:id/news","application/json",(request ,response)->{
+            int id = Integer.parseInt(request.params("id"));
+            return gson.toJson(departmentImplementation.getDepartmentNews(id));
+        });
 
         /* Post Methods */
 
@@ -68,7 +89,8 @@ public class App {
 
         //Department News :: Repetitive maybe
         post("/departmentNews/new","application/json",(req,res)->{
-            DepartmentNews departmentNews = gson.fromJson(req.body(),DepartmentNews.class);
+            DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
+            DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(),dNews.getCategory());
             departmentNewsImplementation.add(departmentNews);
             res.status(201);
             return gson.toJson(departmentNews);
@@ -77,17 +99,25 @@ public class App {
         //Add news to department *Good*
         post("/department/:id/news/new","application/json",(req,res)->{
             int departmentId = Integer.parseInt(req.params("id"));
-            Department department = departmentImplementation.getById(departmentId);
+            System.out.println(departmentId);//252
+            Department department = departmentImplementation.getById(departmentId);// get department
             DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
-            departmentNewsImplementation.add(dNews);
-            departmentNewsImplementation.addDepartmentNews(department,dNews);
+            DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(),dNews.getCategory());
+
+            departmentNewsImplementation.add(departmentNews);//Step == null check
+            System.out.println(departmentNews.getId());
+            System.out.println(departmentNews.getDateCreated());
+            System.out.println(departmentNews.getInformation());
+            System.out.println(departmentNews.getCategory());
+            System.out.println(departmentNews.type);
             res.status(201);
-            return gson.toJson(dNews);
+            return gson.toJson(departmentNews);
         });
 
         //Company News
         post("/companyNews/new","application/json",(req,res)->{
-            CompanyNews companyNews = gson.fromJson(req.body(),CompanyNews.class);
+            CompanyNews cNews = gson.fromJson(req.body(),CompanyNews.class);
+            CompanyNews companyNews = new CompanyNews(cNews.getInformation(),cNews.getCategory());
             companyNewsImplementation.add(companyNews);
             res.status(201);
             return gson.toJson(companyNews);
@@ -102,15 +132,15 @@ public class App {
         });
 
 
-        //Filters
+       //Filters
 
 //        exception(ApiException.class, (exception, req, res) -> {
-//            ApiException err = (ApiException) exception;
-//            Map<String, Object> jsonMap = new HashMap<>();
-//            jsonMap.put("status", err.getStatusCode());
-//            jsonMap.put("errorMessage", err.getMessage());
+//            ApiException error = (ApiException) exception;
+//            Map <String, Object> jsonMap = new HashMap<>();
+//            jsonMap.put("status", error.getStatusCode());
+//            jsonMap.put("errorMessage", error.getMessage());
 //            res.type("application/json");
-//            res.status(err.getStatusCode());
+//            res.status(error.getStatusCode());
 //            res.body(gson.toJson(jsonMap));
 //        });
 
