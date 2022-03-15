@@ -34,6 +34,10 @@ public class App {
         /* Get Methods */
 
         //Get Member
+        get("/members/:id","application/json",(req,res)->{
+            int id = Integer.parseInt(req.params("id"));
+            return gson.toJson(memberImplementation.getById(id));
+        });
 
         //Get Department
 
@@ -46,15 +50,15 @@ public class App {
 
         /* Post Methods */
 
-        //New Member
-        post("/members/new","application/json",(req,res)->{
+        //New Member *All Good*
+        post("department/:id/members/new","application/json",(req,res)->{
             Member member = gson.fromJson(req.body(),Member.class);
             memberImplementation.add(member);
             res.status(201);
             return gson.toJson(member);
         });
 
-        //New Department
+        //New Department *All Good*
         post("/departments/new","application/json",(req,res)->{
             Department department = gson.fromJson(req.body(),Department.class);
             departmentImplementation.add(department);
@@ -62,13 +66,25 @@ public class App {
             return gson.toJson(department);
         });
 
-        //Department News
+        //Department News :: Repetitive maybe
         post("/departmentNews/new","application/json",(req,res)->{
             DepartmentNews departmentNews = gson.fromJson(req.body(),DepartmentNews.class);
             departmentNewsImplementation.add(departmentNews);
             res.status(201);
             return gson.toJson(departmentNews);
         });
+
+        //Add news to department *Good*
+        post("/department/:id/news/new","application/json",(req,res)->{
+            int departmentId = Integer.parseInt(req.params("id"));
+            Department department = departmentImplementation.getById(departmentId);
+            DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
+            departmentNewsImplementation.add(dNews);
+            departmentNewsImplementation.addDepartmentNews(department,dNews);
+            res.status(201);
+            return gson.toJson(dNews);
+        });
+
         //Company News
         post("/companyNews/new","application/json",(req,res)->{
             CompanyNews companyNews = gson.fromJson(req.body(),CompanyNews.class);
