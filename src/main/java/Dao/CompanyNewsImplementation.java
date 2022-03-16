@@ -16,7 +16,7 @@ public class CompanyNewsImplementation implements CompanyNewsDao{
 
     @Override
     public void add(CompanyNews companyNews) {
-        String sql = "INSERT INTO news (information,category,datecreated,humandate,type) VALUES (:information,:category,:dateCreated,:readableDate,:type)";
+        String sql = "INSERT INTO news (information,category,datecreated,readabledate,type) VALUES (:information,:category,:dateCreated,:readableDate,:type)";
         try(Connection conn = sql2o.open()) {
             int id = (int) conn.createQuery(sql,true)
                     .addParameter("information",companyNews.getInformation())

@@ -44,6 +44,11 @@ public class App {
             return gson.toJson(member);
         });
 
+        get("/department/:id/members/all","application/json",(req,res)->{
+            int departmentId = Integer.parseInt(req.params("id"));
+            return gson.toJson(departmentImplementation.getAllMembersInDepartment(departmentId));
+        });
+
         //Get Department ::Good ->No.of employees
         get("/departments/:id","application/json",(req,res)->{
             int id = Integer.parseInt(req.params("id"));
@@ -60,10 +65,14 @@ public class App {
 
         //Get All Department News
         get("/departmentNews/all","application/json",(req,res)->{
-            return gson.toJson(departmentNewsImplementation.getAll());
+            if (departmentNewsImplementation.getAll() != null){
+                return gson.toJson(departmentNewsImplementation.getAll());
+            }else{
+                return gson.toJson("The resource was not found");
+            }
         });
 
-        //Get All Department News At id *Not Yet*
+        //Get All Department News At id
         get("/department/:id/news","application/json",(request ,response)->{
             int id = Integer.parseInt(request.params("id"));
             return gson.toJson(departmentImplementation.getDepartmentNews(id));
@@ -103,13 +112,8 @@ public class App {
             Department department = departmentImplementation.getById(departmentId);// get department
             DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
             DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(),dNews.getCategory());
-
-            departmentNewsImplementation.add(departmentNews);//Step == null check
-            System.out.println(departmentNews.getId());
-            System.out.println(departmentNews.getDateCreated());
-            System.out.println(departmentNews.getInformation());
-            System.out.println(departmentNews.getCategory());
-            System.out.println(departmentNews.type);
+            departmentNewsImplementation.add(departmentNews);
+            departmentNewsImplementation.addDepartmentNews(department,departmentNews);
             res.status(201);
             return gson.toJson(departmentNews);
         });
@@ -134,15 +138,15 @@ public class App {
 
        //Filters
 
-//        exception(ApiException.class, (exception, req, res) -> {
-//            ApiException error = (ApiException) exception;
-//            Map <String, Object> jsonMap = new HashMap<>();
-//            jsonMap.put("status", error.getStatusCode());
-//            jsonMap.put("errorMessage", error.getMessage());
-//            res.type("application/json");
-//            res.status(error.getStatusCode());
-//            res.body(gson.toJson(jsonMap));
-//        });
+        exception(ApiException.class, (exception, req, res) -> {
+            ApiException error = (ApiException) exception;
+            Map <String, Object> jsonMap = new HashMap<>();
+            jsonMap.put("status", error.getStatusCode());
+            jsonMap.put("errorMessage", error.getMessage());
+            res.type("application/json");
+            res.status(error.getStatusCode());
+            res.body(gson.toJson(jsonMap));
+        });
 
         //Refactor response type
         after((req,res)->{

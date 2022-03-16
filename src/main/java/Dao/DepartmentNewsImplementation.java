@@ -17,7 +17,7 @@ public class DepartmentNewsImplementation implements DepartmentNewsDao{
 
     @Override
     public void add(DepartmentNews departmentNews) {
-        String sql = "INSERT INTO news (information,category,datecreated,humandate,type) VALUES (:information,:category,:dateCreated,:readableDate,:type)";
+        String sql = "INSERT INTO news (information,category,datecreated,readabledate,type) VALUES (:information,:category,:dateCreated,:readableDate,:type)";
         try(Connection conn = sql2o.open()) {
             int id = (int) conn.createQuery(sql,true)
                     .addParameter("information",departmentNews.getInformation())
@@ -58,7 +58,6 @@ public class DepartmentNewsImplementation implements DepartmentNewsDao{
     public List<DepartmentNews> getAll() {
         try(Connection conn = sql2o.open()){
             return conn.createQuery("SELECT * FROM news WHERE type = 'department'")
-                    .throwOnMappingFailure(false)
                     .executeAndFetch(DepartmentNews.class);
         }
     }
