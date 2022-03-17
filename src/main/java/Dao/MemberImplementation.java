@@ -16,10 +16,9 @@ public class MemberImplementation implements MemberDao{
 
     @Override
     public void add(Member member) {
-        String sql = "INSERT INTO members(name,position,roles,departmentid) VALUES (:name,:position,:role,:departmentId)";
+        String sql = "INSERT INTO members(name,position,roles,rolesstring,departmentid) VALUES (:name,:position,:roles,:rolesString,:departmentId)";
         try(Connection conn = sql2o.open()){
             int id = (int) conn.createQuery(sql,true)
-                    .addParameter("role",member.getRolesString())
                                .bind(member)
                                .executeUpdate()
                                .getKey();
@@ -30,12 +29,12 @@ public class MemberImplementation implements MemberDao{
     }
 
     @Override
-    public Member getById(int id) {
+    public Member getById(int memberId) {
 
         try(Connection conn = sql2o.open()){
 
-            return conn.createQuery("SELECT * FROM members WHERE id = :id")
-                       .addParameter("id",id)
+            return conn.createQuery("SELECT id,name,position,rolesstring,departmentid FROM members WHERE id = :memberId")
+                       .addParameter("memberId",memberId)
                        .executeAndFetchFirst(Member.class);
         }
     }
@@ -43,7 +42,7 @@ public class MemberImplementation implements MemberDao{
     @Override
     public List<Member> getAllMembers() {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM members")
+            return conn.createQuery("SELECT id,name,position,rolesstring,departmentid  FROM members")
                        .executeAndFetch(Member.class);
         }
     }

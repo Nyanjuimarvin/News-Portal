@@ -53,7 +53,7 @@ public class DepartmentImplementation implements DepartmentDao{
     @Override
     public List<Member> getAllMembersInDepartment(int id) {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM members WHERE departmentid = :id")
+            return conn.createQuery("SELECT id,name,position,rolesstring,departmentid FROM members WHERE departmentid = :id")
                     .addParameter("id",id)
                     .executeAndFetch(Member.class);
         }

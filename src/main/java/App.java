@@ -35,52 +35,71 @@ public class App {
 
         /* Get Methods */
 
+        //All Members
+        get("/members/all","application/json",(req,res)->{
+            if (memberImplementation.getAllMembers().size() == 0){
+                return gson.toJson("No members are added yet. Try again after adding a member");
+            }
+            return gson.toJson(memberImplementation.getAllMembers());
+        });
+
         //Get Member
         get("/members/:id","application/json",(req,res)->{
-            int id = Integer.parseInt(req.params("id"));
-            Member member = memberImplementation.getById(id);
-            System.out.println(id);
-            System.out.println(member.getName());
+            int memberId = Integer.parseInt(req.params("id"));
+            if (memberImplementation.getById(memberId) == null) return gson.toJson(String.format("400: No member with the id %d exists yet.Try searching another member",memberId));
+            Member member = memberImplementation.getById(memberId);
             return gson.toJson(member);
         });
 
-        get("/department/:id/members/all","application/json",(req,res)->{
+        //All Members in a department
+        get("/departments/:id/members/all","application/json",(req,res)->{
             int departmentId = Integer.parseInt(req.params("id"));
-            return gson.toJson(departmentImplementation.getAllMembersInDepartment(departmentId));
-        });
-
-        //Get Department ::Good ->No.of employees
-        get("/departments/:id","application/json",(req,res)->{
-            int id = Integer.parseInt(req.params("id"));
-            Department department = departmentImplementation.getById(id);
-            System.out.println(id);
-            System.out.println(department.getName());
-            return gson.toJson(department);
-        });
-
-        //Get Company News
-        get("/companyNews/all","application/json",(req,res)->{
-           return gson.toJson(companyNewsImplementation.allCompanyNews());
-        });
-
-        //Get All Department News
-        get("/departmentNews/all","application/json",(req,res)->{
-            if (departmentNewsImplementation.getAll() != null){
-                return gson.toJson(departmentNewsImplementation.getAll());
-            }else{
-                return gson.toJson("The resource was not found");
+            if (departmentImplementation.getById(departmentId) == null ){
+                return gson.toJson(String.format("400: No department with the id %d exists yet.",departmentId));
+            }else if ( departmentImplementation.getAllMembersInDepartment(departmentId).size() == 0){
+                return gson.toJson(String.format("400: The department with the id %d has no members.",departmentId));
+            }else {
+                return gson.toJson(departmentImplementation.getAllMembersInDepartment(departmentId));
             }
         });
 
-        //Get All Department News At id
+        //Get Department ::Good *Done*
+        get("/departments/:id","application/json",(req,res)->{
+            int id = Integer.parseInt(req.params("id"));
+            if (departmentImplementation.getById(id) == null){
+                return gson.toJson(String.format("404: Department with the id: %d was not found",id));
+            }
+            return gson.toJson(departmentImplementation.getById(id));
+        });
+
+        //Get Company News *All Great*
+        get("/companyNews/all","application/json",(req,res)-> {
+            if (companyNewsImplementation.allCompanyNews().size() == 0){
+                return gson.toJson("404: No Company News Found,try adding some first");
+            }
+            return gson.toJson(companyNewsImplementation.allCompanyNews());
+        });
+
+        //Get All Department News *All Great*
+        get("/departmentNews/all","application/json",(req,res)->{
+            if (departmentNewsImplementation.getAll().size() == 0){
+                return gson.toJson("No department news found. Add by using the given route provided a department exists");
+            }
+            return gson.toJson(departmentNewsImplementation.getAll());
+        });
+
+        //Get All Department News At id *Done*
         get("/department/:id/news","application/json",(request ,response)->{
             int id = Integer.parseInt(request.params("id"));
+            if (departmentImplementation.getById(id) == null){
+                return gson.toJson(String.format("404: News for department with the id: %d was not found",id));
+            }
             return gson.toJson(departmentImplementation.getDepartmentNews(id));
         });
 
         /* Post Methods */
 
-        //New Member *All Good*
+        //New Member
         post("department/:id/members/new","application/json",(req,res)->{
             Member member = gson.fromJson(req.body(),Member.class);
             memberImplementation.add(member);
@@ -88,7 +107,7 @@ public class App {
             return gson.toJson(member);
         });
 
-        //New Department *All Good*
+        //New Department
         post("/departments/new","application/json",(req,res)->{
             Department department = gson.fromJson(req.body(),Department.class);
             departmentImplementation.add(department);
@@ -96,7 +115,7 @@ public class App {
             return gson.toJson(department);
         });
 
-        //Department News :: Repetitive maybe
+        //Department News
         post("/departmentNews/new","application/json",(req,res)->{
             DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
             DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(),dNews.getCategory());
@@ -105,15 +124,18 @@ public class App {
             return gson.toJson(departmentNews);
         });
 
-        //Add news to department *Good*
+        //Add news to department *Done*
         post("/department/:id/news/new","application/json",(req,res)->{
             int departmentId = Integer.parseInt(req.params("id"));
-            System.out.println(departmentId);//252
+
+            if(departmentImplementation.getById(departmentId) == null) {
+                return gson.toJson(String.format("400 Bad Request: Could not create News as a department with the id %d does not exist",departmentId));
+            }
             Department department = departmentImplementation.getById(departmentId);// get department
-            DepartmentNews dNews = gson.fromJson(req.body(),DepartmentNews.class);
-            DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(),dNews.getCategory());
+            DepartmentNews dNews = gson.fromJson(req.body(), DepartmentNews.class);
+            DepartmentNews departmentNews = new DepartmentNews(dNews.getInformation(), dNews.getCategory());
             departmentNewsImplementation.add(departmentNews);
-            departmentNewsImplementation.addDepartmentNews(department,departmentNews);
+            departmentNewsImplementation.addDepartmentNews(department, departmentNews);
             res.status(201);
             return gson.toJson(departmentNews);
         });
@@ -137,16 +159,6 @@ public class App {
 
 
        //Filters
-
-        exception(ApiException.class, (exception, req, res) -> {
-            ApiException error = (ApiException) exception;
-            Map <String, Object> jsonMap = new HashMap<>();
-            jsonMap.put("status", error.getStatusCode());
-            jsonMap.put("errorMessage", error.getMessage());
-            res.type("application/json");
-            res.status(error.getStatusCode());
-            res.body(gson.toJson(jsonMap));
-        });
 
         //Refactor response type
         after((req,res)->{

@@ -23,6 +23,7 @@ public class Member {
         this.position = position;
         this.departmentId = departmentId;
         this.roles = roles;
+        this.rolesString = this.getRolesString();
     }
 
     @Override
@@ -32,9 +33,7 @@ public class Member {
         Member member = (Member) o;
         return departmentId == member.departmentId
                 && Objects.equals(name, member.name)
-                && Objects.equals(position, member.position)
-                && Objects.equals(roles, member.roles)
-                && Objects.equals(rolesString, member.rolesString);
+                && Objects.equals(position, member.position);
     }
 
     @Override

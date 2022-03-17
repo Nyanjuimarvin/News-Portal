@@ -48,13 +48,13 @@ class MemberImplementationTest {
         assertNotEquals(initialId,member.getId());
     }
 
-//    @Test
-//    @DisplayName("Get member by Id")
-//    public void getById_ReturnsMemberAtId() throws Exception{
-//        member = setUpMember();
-//        memberImplementation.add(member);
-//        assertEquals(member,memberImplementation.getById(member.getId()));
-//    }
+    @Test
+    @DisplayName("Get member by Id")
+    public void getById_ReturnsMemberAtId() throws Exception{
+        member = setUpMember();
+        memberImplementation.add(member);
+        assertEquals(member,memberImplementation.getById(member.getId()));
+    }
 
     @Test
     @DisplayName("Get all returns all members")
