@@ -1,0 +1,1 @@
+web: ./build/install/ pt-news-portal/bin/ pt-news-portal

@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 
 mainClassName = 'App'
 sourceCompatibility = 1.8
+applicationName = 'pt-news-portal'
 
 repositories {
     mavenCentral()
@@ -30,3 +31,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+task stage(dependsOn: ['clean', 'installDist'])
