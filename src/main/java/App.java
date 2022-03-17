@@ -29,16 +29,14 @@ public class App {
         DepartmentNewsImplementation departmentNewsImplementation;
 
         //Start with testing db
-        String connectionString = "postgres://jibfhhrsroeryz:bf1c9af092f37f4676a32850a15e2466a8d81d55d9729e43593a697bd261abc9@ec2-3-212-45-192.compute-1.amazonaws.com:5432/d7sromadp5n4sr";
-        Sql2o sql2o = new Sql2o(connectionString,"jibfhhrsroeryz","bf1c9af092f37f4676a32850a15e2466a8d81d55d9729e43593a697bd261abc9");
         Gson gson = new Gson();
 
-        adminImplementation = new AdminImplementation(sql2o);
-        memberImplementation = new MemberImplementation(sql2o);
-        departmentImplementation = new DepartmentImplementation(sql2o);
-        companyNewsImplementation = new CompanyNewsImplementation(sql2o);
-        departmentNewsImplementation = new DepartmentNewsImplementation(sql2o);
-        conn = sql2o.open();
+        adminImplementation = new AdminImplementation(Db.sql2o);
+        memberImplementation = new MemberImplementation(Db.sql2o);
+        departmentImplementation = new DepartmentImplementation(Db.sql2o);
+        companyNewsImplementation = new CompanyNewsImplementation(Db.sql2o);
+        departmentNewsImplementation = new DepartmentNewsImplementation(Db.sql2o);
+        conn = Db.sql2o.open();
 
         /* Get Methods */
 
