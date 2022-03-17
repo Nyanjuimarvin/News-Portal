@@ -6,6 +6,9 @@ import org.sql2o.Sql2o;
 import static spark.Spark.*;
 import com.google.gson.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class App {
     public static void main(String[] args) {
 
@@ -29,6 +32,23 @@ public class App {
         conn = sql2o.open();
 
         /* Get Methods */
+
+        get("/",(req,res)->{
+
+            Map <String,String> routes = new HashMap<>();
+            routes.put("Add department","departments/new");
+            routes.put("Add member","department/:departmentId/members/new");
+            routes.put("Add news to department","department/:id/news/new");
+            routes.put("Add Company News","companyNews/new");
+            routes.put("Get All Members","members/all");
+            routes.put("Get member","member/:memberId");
+            routes.put("Get department","departments/:departmentId");
+            routes.put("Get All Members in a department","departments/:id/members/all");
+            routes.put("Get All company news","companyNews/all");
+            routes.put("Get All Department news","departmentNews/all");
+            routes.put("Get All news in a department","department/:departmentId/news");
+            return gson.toJson(routes);
+        });
 
         //All Members
         get("/members/all","application/json",(req,res)->{
