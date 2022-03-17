@@ -42,6 +42,7 @@ public class App {
             routes.put("Add Company News","companyNews/new");
             routes.put("Get All Members","members/all");
             routes.put("Get member","member/:memberId");
+            routes.put("Get all departments","departments/all");
             routes.put("Get department","departments/:departmentId");
             routes.put("Get All Members in a department","departments/:id/members/all");
             routes.put("Get All company news","companyNews/all");
@@ -78,7 +79,14 @@ public class App {
             }
         });
 
-        //Get Department ::Good *Done*
+        //Get all departments
+        get("/departments/all","application/json",(req,res)->{
+            if (departmentImplementation.getAllDepartments().size() == 0)
+                return gson.toJson("No departments exist yet.Try again after adding one");
+            return gson.toJson(departmentImplementation.getAllDepartments());
+        });
+
+        //Get Department
         get("/departments/:id","application/json",(req,res)->{
             int id = Integer.parseInt(req.params("id"));
             if (departmentImplementation.getById(id) == null){
@@ -87,7 +95,8 @@ public class App {
             return gson.toJson(departmentImplementation.getById(id));
         });
 
-        //Get Company News *All Great*
+
+        //Get Company News
         get("/companyNews/all","application/json",(req,res)-> {
             if (companyNewsImplementation.allCompanyNews().size() == 0){
                 return gson.toJson("404: No Company News Found,try adding some first");
@@ -95,7 +104,7 @@ public class App {
             return gson.toJson(companyNewsImplementation.allCompanyNews());
         });
 
-        //Get All Department News *All Great*
+        //Get All Department News
         get("/departmentNews/all","application/json",(req,res)->{
             if (departmentNewsImplementation.getAll().size() == 0){
                 return gson.toJson("No department news found. Add by using the given route provided a department exists");
@@ -103,7 +112,7 @@ public class App {
             return gson.toJson(departmentNewsImplementation.getAll());
         });
 
-        //Get All Department News At id *Done*
+        //Get All Department News At id
         get("/department/:id/news","application/json",(request ,response)->{
             int id = Integer.parseInt(request.params("id"));
             if (departmentImplementation.getById(id) == null){
@@ -139,7 +148,7 @@ public class App {
             return gson.toJson(departmentNews);
         });
 
-        //Add news to department *Done*
+        //Add news to department
         post("/department/:id/news/new","application/json",(req,res)->{
             int departmentId = Integer.parseInt(req.params("id"));
 
