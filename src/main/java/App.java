@@ -29,8 +29,8 @@ public class App {
         DepartmentNewsImplementation departmentNewsImplementation;
 
         //Start with testing db
-        String connectionString = "jdbc:postgresql://localhost:5432/organization_news_test";
-        Sql2o sql2o = new Sql2o(connectionString,"marvin","nrvnqsr13");
+        String connectionString = "postgres://jibfhhrsroeryz:bf1c9af092f37f4676a32850a15e2466a8d81d55d9729e43593a697bd261abc9@ec2-3-212-45-192.compute-1.amazonaws.com:5432/d7sromadp5n4sr";
+        Sql2o sql2o = new Sql2o(connectionString,"jibfhhrsroeryz","bf1c9af092f37f4676a32850a15e2466a8d81d55d9729e43593a697bd261abc9");
         Gson gson = new Gson();
 
         adminImplementation = new AdminImplementation(sql2o);
