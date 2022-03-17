@@ -97,7 +97,7 @@ Use the following templates for the post methods:
 ```
 
 ## Live Link
-
+https://pt-news-portal.herokuapp.com/
 ## Contact
 For any issues, additional requests or compliments, reach out to me using:
 * E-mail - marnyanjui@gmail.com
